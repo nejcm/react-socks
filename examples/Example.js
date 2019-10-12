@@ -1,6 +1,6 @@
 import React from 'react';
-
 import Breakpoint, { BreakpointProvider } from '../src/index';
+
 // import { setDefaultBreakpoints } from '../src/index';
 // setDefaultBreakpoints([
 //   { xs: 0 },
@@ -15,7 +15,7 @@ class Example extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
@@ -58,19 +58,30 @@ class Example extends React.Component {
             </div>
           </Breakpoint>
           <Breakpoint customQuery="(min-width: 500px)">
-            <div style={{backgroundColor: 'red' }}>
+            <div style={{ backgroundColor: 'red' }}>
               Custom breakpoint: (min-width : 500px)
             </div>
           </Breakpoint>
           <Breakpoint customQuery="(max-width: 1000px)">
-            <div style={{backgroundColor: 'yellow' }}>
+            <div style={{ backgroundColor: 'yellow' }}>
               Custom breakpoint: (max-width : 1000px)
             </div>
           </Breakpoint>
           <Breakpoint customQuery="(min-width: 500px) and (max-width: 700px)">
-            <div style={{backgroundColor: 'lightblue' }}>
+            <div style={{ backgroundColor: 'lightblue' }}>
               Custom breakpoint: (min-width : 500px) && (max-width : 700px)
             </div>
+          </Breakpoint>
+          <Breakpoint xlarge only>
+            {(shouldRender) =>
+              shouldRender ? (
+                <div style={{ backgroundColor: '#BB4136' }}>
+                  Hello World! First condition: xlarge only
+                </div>
+              ) : (<div style={{ backgroundColor: '#EE4136' }}>
+                Hello World! Second condition: not xlarge only
+              </div>)
+            }
           </Breakpoint>
         </div>
       </BreakpointProvider>

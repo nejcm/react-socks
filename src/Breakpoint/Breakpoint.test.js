@@ -1,8 +1,8 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Breakpoint, { BreakpointProvider } from 'index';
-import { BreakpointUtil } from './breakpoint-util';
+import React from 'react';
 import sinon from 'sinon';
+import { BreakpointUtil } from './breakpoint-util';
 
 describe('Breakpoint', () => {
   it('render without crashing', () => {
@@ -370,6 +370,32 @@ describe('Breakpoint - large', () => {
       </BreakpointProvider>
     );
     expect(wrapper.children().children()).toHaveLength(1);
+  });
+
+  it('should render first condition', () => {
+    let wrapper = mount(
+      <BreakpointProvider>
+        <Breakpoint large down>
+          {(shouldRender) =>
+            shouldRender ? <span>should render below 1200</span> : null
+          }
+        </Breakpoint>
+      </BreakpointProvider>
+    );
+    expect(wrapper.children().children()).toHaveLength(1);
+  });
+
+  it('should render second condition', () => {
+    let wrapper = mount(
+      <BreakpointProvider>
+        <Breakpoint medium down>
+          {(shouldRender) =>
+            shouldRender ? <span>should not render below 768</span> : null
+          }
+        </Breakpoint>
+      </BreakpointProvider>
+    );
+    expect(wrapper.children().children()).toHaveLength(0);
   });
 
   it('should render as a span', () => {

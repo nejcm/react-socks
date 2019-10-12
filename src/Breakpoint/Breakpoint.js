@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import BreakpointUtil from './breakpoint-util';
 import { BreakpointContext } from './BreakpointProvider';
+
 
 export default class Breakpoint extends React.Component {
   constructor(props) {
@@ -28,14 +28,14 @@ export default class Breakpoint extends React.Component {
         usesCustomQuery = true;
       } else if (prop !== 'tagName' && prop !== 'className' && prop !== 'style') {
         breakpoint = prop;
-      } 
+      }
     });
 
     if (modifier === 'up' || modifier === 'down' || modifier === 'only') {
       usesCustomQuery = false;
     }
 
-    if (!modifier && !usesCustomQuery)  modifier  = 'only';
+    if (!modifier && !usesCustomQuery) modifier = 'only';
 
     return {
       breakpoint,
@@ -49,12 +49,12 @@ export default class Breakpoint extends React.Component {
 
   render() {
     const { children, ...rest } = this.props;
-    const { 
-      breakpoint, 
-      modifier, 
-      className, 
-      tagName, 
-      style, 
+    const {
+      breakpoint,
+      modifier,
+      className,
+      tagName,
+      style,
       customQuery
     } = this.extractBreakpointAndModifierFromProps(rest);
 
@@ -68,19 +68,30 @@ export default class Breakpoint extends React.Component {
       customQuery
     });
 
-    if (!shouldRender) return null;
+    if (!children) {
+      return null;
+    }
 
     const Tag = tagName
-    return (
-      <Tag className={`breakpoint__${breakpoint}-${modifier} ${className}`} style={style}>{children}</Tag>
-    );
+    return typeof children === "function" ? (
+      children(shouldRender)
+    ) : !Array.isArray(children) || children.length ? (
+      shouldRender ? (
+        <Tag
+          className={`breakpoint__${breakpoint}-${modifier} ${className}`}
+          style={style}
+        >
+          {children}
+        </Tag>
+      ) : null
+    ) : null;
   }
 }
 
 Breakpoint.contextType = BreakpointContext;
 
 Breakpoint.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   up: PropTypes.bool,
   down: PropTypes.bool,
   only: PropTypes.bool,
