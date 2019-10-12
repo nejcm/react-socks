@@ -72,19 +72,12 @@ export default class Breakpoint extends React.Component {
       return null;
     }
 
-    const Tag = tagName
-    return typeof children === "function" ? (
-      children(shouldRender)
-    ) : !Array.isArray(children) || children.length ? (
-      shouldRender ? (
-        <Tag
-          className={`breakpoint__${breakpoint}-${modifier} ${className}`}
-          style={style}
-        >
-          {children}
-        </Tag>
-      ) : null
-    ) : null;
+    const Tag = tagName;
+    return typeof children === "function"
+      ? children(shouldRender)
+      : shouldRender
+        ? (<Tag className={`breakpoint__${breakpoint}-${modifier} ${className}`} style={style}>{children}</Tag>)
+        : null;
   }
 }
 
