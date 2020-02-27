@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import BreakpointUtil from './breakpoint-util';
 import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
+import React from 'react';
+import BreakpointUtil from './breakpoint-util';
+
 
 const BreakpointContext = React.createContext({
   currentWidth: 9999,
@@ -51,7 +51,7 @@ export default class BreakpointProvider extends React.Component {
           currentBreakpointName,
         }}
       >
-        { children }
+        {children}
       </BreakpointContext.Provider>
     );
   }
@@ -65,10 +65,21 @@ export const useCurrentBreakpointName = () => {
   return React.useContext(BreakpointContext).currentBreakpointName
 }
 
+export const useShouldRender = (options) => {
+  const { currentBreakpointName, currentWidth } = React.useContext(BreakpointContext);
+  const { breakpoint, modifier, customQuery } = options;
+  return BreakpointUtil.shouldRender({
+    breakpointName: breakpoint,
+    modifier,
+    currentBreakpointName,
+    currentWidth,
+    customQuery
+  });
+}
+
 BreakpointProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export {
-  BreakpointContext,
-};
+export { BreakpointContext, };
+

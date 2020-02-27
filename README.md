@@ -242,6 +242,21 @@ const CustomComponent = () => {
 }
 ```
 
+You can also use the should render with `useShouldRender`:
+
+```jsx
+import { useShouldRender } from 'react-socks'
+
+const CustomComponent = () => {
+  const shouldRender = useShouldRender({ breakpoint: 'small', modifier: 'down', customQuery: null })
+  if (shouldRender) {
+    return <h1>Hello!</h1>
+  } else {
+    return <h2>Hello!</h2>
+  }
+}
+```
+
 ## Contributors
 
 Thanks goes to these amazing people 🎉

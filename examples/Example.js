@@ -1,5 +1,5 @@
 import React from 'react';
-import Breakpoint, { BreakpointProvider } from '../src/index';
+import Breakpoint, { BreakpointProvider, useShouldRender } from '../src/index';
 
 // import { setDefaultBreakpoints } from '../src/index';
 // setDefaultBreakpoints([
@@ -9,6 +9,11 @@ import Breakpoint, { BreakpointProvider } from '../src/index';
 //   { l: 769 },
 //   { xl: 1025 }
 // ]);
+
+function ShouldRender({ options, children }) {
+  const should = useShouldRender(options)
+  return children(should);
+}
 
 class Example extends React.Component {
   constructor(props) {
@@ -83,6 +88,17 @@ class Example extends React.Component {
               </div>)
             }
           </Breakpoint>
+          <ShouldRender options={{ breakpoint: 'large', modifier: 'down' }}>
+            {(shouldRender) =>
+              shouldRender ? (
+                <div style={{ backgroundColor: '#851818', color: '#FFF' }}>
+                  Hello World! First condition: large down
+                </div>
+              ) : (<div style={{ backgroundColor: '#400808', color: '#FFF' }}>
+                Hello World! Second condition: not large down
+              </div>)
+            }
+          </ShouldRender>
         </div>
       </BreakpointProvider>
     );
