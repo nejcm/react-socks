@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import BreakpointUtil from './breakpoint-util';
 
-
 const BreakpointContext = React.createContext({
   currentWidth: 9999,
-  currentBreakpointName: ''
+  currentBreakpointName: '',
 });
 
 export default class BreakpointProvider extends React.Component {
@@ -16,7 +15,7 @@ export default class BreakpointProvider extends React.Component {
 
     this.state = {
       currentWidth: currentWidth,
-      currentBreakpointName: BreakpointUtil.getBreakpointName(currentWidth)
+      currentBreakpointName: BreakpointUtil.getBreakpointName(currentWidth),
     };
 
     this.handleResize = debounce(this.handleResize.bind(this), 100);
@@ -36,7 +35,7 @@ export default class BreakpointProvider extends React.Component {
 
     this.setState({
       currentWidth: currentWidth,
-      currentBreakpointName: BreakpointUtil.getBreakpointName(currentWidth)
+      currentBreakpointName: BreakpointUtil.getBreakpointName(currentWidth),
     });
   }
 
@@ -58,28 +57,29 @@ export default class BreakpointProvider extends React.Component {
 }
 
 export const useCurrentWidth = () => {
-  return React.useContext(BreakpointContext).currentWidth
-}
+  return React.useContext(BreakpointContext).currentWidth;
+};
 
 export const useCurrentBreakpointName = () => {
-  return React.useContext(BreakpointContext).currentBreakpointName
-}
+  return React.useContext(BreakpointContext).currentBreakpointName;
+};
 
 export const useShouldRender = (options) => {
-  const { currentBreakpointName, currentWidth } = React.useContext(BreakpointContext);
+  const { currentBreakpointName, currentWidth } = React.useContext(
+    BreakpointContext,
+  );
   const { breakpoint, modifier, customQuery } = options;
   return BreakpointUtil.shouldRender({
     breakpointName: breakpoint,
     modifier,
     currentBreakpointName,
     currentWidth,
-    customQuery
+    customQuery,
   });
-}
+};
 
 BreakpointProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export { BreakpointContext, };
-
+export { BreakpointContext };

@@ -11,7 +11,7 @@ import Breakpoint, { BreakpointProvider, useShouldRender } from '../src/index';
 // ]);
 
 function ShouldRender({ options, children }) {
-  const should = useShouldRender(options)
+  const should = useShouldRender(options);
   return children(should);
 }
 
@@ -20,7 +20,7 @@ class Example extends React.Component {
     super(props);
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   render() {
     return (
@@ -83,20 +83,24 @@ class Example extends React.Component {
                 <div style={{ backgroundColor: '#BB4136' }}>
                   Hello World! First condition: xlarge only
                 </div>
-              ) : (<div style={{ backgroundColor: '#EE4136' }}>
-                Hello World! Second condition: not xlarge only
-              </div>)
+              ) : (
+                <div style={{ backgroundColor: '#EE4136' }}>
+                  Hello World! Second condition: not xlarge only
+                </div>
+              )
             }
           </Breakpoint>
-          <ShouldRender options={{ breakpoint: 'large', modifier: 'down' }}>
+          <ShouldRender options={{ breakpoint: 'small', modifier: 'down' }}>
             {(shouldRender) =>
               shouldRender ? (
                 <div style={{ backgroundColor: '#851818', color: '#FFF' }}>
-                  Hello World! First condition: large down
+                  Hello World! First condition: small down
                 </div>
-              ) : (<div style={{ backgroundColor: '#400808', color: '#FFF' }}>
-                Hello World! Second condition: not large down
-              </div>)
+              ) : (
+                <div style={{ backgroundColor: '#400808', color: '#FFF' }}>
+                  Hello World! Second condition: not small down
+                </div>
+              )
             }
           </ShouldRender>
         </div>
