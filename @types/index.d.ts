@@ -13,7 +13,7 @@ declare namespace ReactSocks {
     tagName?: string;
     className?: string;
     customQuery?: string;
-    style?: React.CSSProperties
+    style?: React.CSSProperties;
   }
 
   interface BreakpointProviderProps {
@@ -42,16 +42,24 @@ declare namespace ReactSocks {
     [breakpoint: string]: number;
   }
 
-  export function setDefaultBreakpoints(breakpoints: ReactSocks.BreakpointType[]): void;
+  export function setDefaultBreakpoints(
+    breakpoints: ReactSocks.BreakpointType[],
+  ): void;
   export function useCurrentWidth(): number;
   export function useCurrentBreakpointName(): string;
-  export function useShouldRender(options: ReactSocks.ShouldRenderProps): boolean;
+  export function useShouldRender(
+    options: ReactSocks.ShouldRenderProps,
+  ): boolean;
 
   export class Breakpoint extends React.Component<ReactSocks.Props> {
-    static extractBreakpointAndModifierFromProps(allProps: ReactSocks.Props): ReactSocks.BreakpointAndModifierProps;
+    static extractBreakpointAndModifierFromProps(
+      allProps: ReactSocks.Props,
+    ): ReactSocks.BreakpointAndModifierProps;
   }
 
-  export class BreakpointProvider extends React.Component<ReactSocks.BreakpointProviderProps> {
+  export class BreakpointProvider extends React.Component<
+    ReactSocks.BreakpointProviderProps
+  > {
     static handleResize(): void;
   }
 }
